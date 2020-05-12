@@ -8,6 +8,15 @@ const contactSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    countryCode:{
+        type:String
+    },
+    type:{
+        type:String
+    },
+    countryPrefix:{
+        type:String
+    },
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'User'

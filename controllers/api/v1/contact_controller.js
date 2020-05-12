@@ -11,10 +11,14 @@ module.exports.add = function(req,res){
                 message:'Number is invalid. Please check number format'
             });
         }
+            console.log(response);
          Contact.create({
             
                 name: req.body.name,
-                phoneNumber:req.body.phoneNumber,
+                phoneNumber:response.phoneNumber,
+                countryCode:response.countryCode,
+                type: response.type,
+                countryPrefix:response.countryPrefix,
                 user:req.user._id
                 },function(err,resp){
             if(err){

@@ -1,13 +1,16 @@
 const User = require('../../../models/user');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
+const saltRounds = 10;
 
 // Function to implement login
 module.exports.login = async function(req,res){
 
     try{
         let user = await User.findOne({mobileNumber:req.body.mobileNumber});
-
-        if(!user || user.password != req.body.password){
+        let hash = await bcrypt.compare(req.body.password, user.password);
+        if(!user || !hash){
             return res.json(401,{
                 message:"Invalid Username and Password!!"
             });
@@ -41,7 +44,12 @@ module.exports.register = async function(req,res){
         });
     }
     // Creating new user if it not already registered and returning jwt token
-    let usereg = await User.create(req.body);
+    const hash = await bcrypt.hash(req.body.password,saltRounds);
+
+    let usereg = await User.create({
+        mobileNumber:req.body.mobileNumber,
+        password:hash
+    });
 
     return res.json(200,{
         message:'User successfully registered',
