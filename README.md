@@ -8,7 +8,7 @@ used to authenticate user to add contact.
 
 Before adding contact the number is verified by MessageBird API. If it is verified then only it get stored in DB.
 
-##Steps to set up in local Machine
+##Steps to set up in local Machine##
 
 1. git clone https://github.com/Piyush-zlatan/ContactBird.git
 2. npm install (To install all the required libraries)
